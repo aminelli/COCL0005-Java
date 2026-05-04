@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: demo
+
+feature:
+  email:
+    # consento la creazione del bean EmailService
+    enabled: true 
+  sms:
+    # non consento la creazione del bean SmsService
+    enabled: false
+  advanced:
+    # consento la creazione del bean AdvancedService
+    mode: true
+
+cache:
+  redis:
+    enabled: true 
+
+logging:
+  level:
+    org:
+      springframework:
+        context:
+          annotation: DEBUG
