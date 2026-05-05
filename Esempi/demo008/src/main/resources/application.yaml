@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: demo
+  cloud:
+    aws:
+      region:
+        static: us-east-1
+      secretsmanager:
+        enabled: true
+        default-context: application
+        prefix: /myapp/prod
+
+  datasource:
+    url: jdbc:postgresql://${database.host}:${database.port}/${database.database}
+    username: ${database.username}
+    password: ${database.password}
+
+stripe:
+  apiKey: ${api-keys.stripe}
+
+sendgrid:
+  api-key: ${api-keys.sendgrid}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    refresh:
+      enabled: true
+
+app:
+  features:
+    new-checkout: false
+    beta-payment-method: false
+    experimental-search: true
+  rate-limit:
+    requests-per-minute: 100
+
