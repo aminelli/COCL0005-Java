@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: demo
+  config:
+    import: 
+      # Prefissi: optional, file, classpath
+      - classpath:application-${spring.profiles.active}.yaml
+      - optional:file:./dev.properties
+      - file:./common.properties
+      - file:./etc/config2/extended.yaml
+      # Prefissi personalizzati
+      - configserver:http://localhost:8888
+      - vault://localhost:8200
+      - vault://secret/database
+      - congiftree:/etc/config/
+  datasource:
+    url: ${db.url}
+    username: ${db.username}
+    password: ${db.password}
+
+
+# Es. Struttura config free in Kube
+# /etc/config/
+#   |---> db.udl
+#   |---> db.username
+#   |---> db.password
+
+ 
+
