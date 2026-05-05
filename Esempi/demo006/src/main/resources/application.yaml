@@ -1,0 +1,131 @@
+# ================================
+# COMMON CONFIG
+# java -jar app.jar
+# ================================
+
+spring:
+  application:
+    name: demo
+
+# USO PLACEHOLDER PER PROPRIETÀ COMUNI
+
+server:
+  port: ${SERVER_PORT:8080}
+
+app:
+  # Simple list
+  allowed-origins:
+    - http://localhost:${SERVER_PORT:8080}
+
+  api-endpoints:
+    - /api/v1/
+    - /api/v2/
+
+  api-clients:
+    - name: Frontend
+      client-id: api-001
+      scopes:
+        - read
+        - write
+    - name: Backend
+      client-id: api-002
+      scopes:
+        - read
+        - write
+        - admin
+    - name: Backend Partner (B2B)
+      client-id: api-003
+      scopes:
+        - read
+
+  # Map structure
+  feature-flags:
+    new-checkout: true
+    beta-payment-method: false
+    experimental-search: true
+
+  # Nested Map
+  rate-limits:
+    anonymous:
+      requests-per-minute: 10
+      burst: 20
+    authenticated:
+      requests-per-minute: 100
+      burst: 150
+    premium:
+      requests-per-minute: 1000
+      burst: 2000
+
+---
+
+# ================================
+# Dev Profile
+# java -jar app.jar --spring.profiles.active=dev
+# ================================
+    
+spring:
+  config:
+    activate:
+      on-profile: dev
+    import: optional:file:./my-env.properties
+
+logging:
+  level:
+    root: DEBUG
+    com.example.demo: DEBUG
+
+app:
+  # Simple list
+  allowed-origins:
+    - http://localhost:${SERVER_PORT:8080}
+    - http://example.com
+    - http://anotherdomain.com
+
+
+---
+
+# ================================
+# Staging Profile
+# java -jar app.jar --spring.profiles.active=staging
+# ================================
+    
+spring:
+  config:
+    activate:
+      on-profile: staging
+
+logging:
+  level:
+    root: INFO
+    com.example.demo: WARN
+
+app:
+  # Simple list
+  allowed-origins:
+    - http://localhost:${SERVER_PORT:8080}
+    - http://example.com
+    - http://anotherdomain.com
+
+---
+
+# ================================
+# PROD Profile
+# java -jar app.jar --spring.profiles.active=prod
+# ================================
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+logging:
+  level:
+    root: ERROR
+    com.example.demo: ERROR
+
+app:
+  # Simple list
+  allowed-origins:
+    - http://example.com
+    - http://anotherdomain.com
+
