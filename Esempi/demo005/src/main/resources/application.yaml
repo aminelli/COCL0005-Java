@@ -1,0 +1,100 @@
+# Default Configuration for Spring Boot Application
+
+app:
+  feature:
+    - feature1
+    - feature2
+
+# app.feature[0] = feature1
+# app.feature[1] = feature2
+
+spring:
+  application:
+    name: demo
+    version: 0.0.1-SNAPSHOT
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true  
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+    version: 1.1
+  tomcat:
+    max-threads: 200
+    min-spare-threads: 20
+    max-connections: 10000
+    max-http-header-size: 8192
+    max-swallow-size: 2097152
+
+
+# ===================
+# Tipi Scalari
+# ===================
+string-value: "Ciao, questo è un valore scalare"
+int-value: 42
+boolean-value: true
+null-value: null
+float-value: 3.14
+
+# ===================
+# Tipi Collezioni
+# ===================
+
+# lists
+list-value:
+  - "Elemento 1"
+  - "Elemento 2"
+  - "Elemento 3"  
+
+# maps
+map-value:
+  chiave1: "Valore 1"
+  chiave2: "Valore 2"
+  chiave3: "Valore 3"
+
+# Nested structures
+complex:
+  nested:
+    deep:
+      value: "Valore annidato"
+
+---
+
+# Development specific configuration
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+server:
+  port: 8081
+logging:
+  level:
+    root: DEBUG
+
+---
+
+# Production specific configuration
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+server:
+  port: 80
+logging:
+  level:
+    root: WARN
+
+
