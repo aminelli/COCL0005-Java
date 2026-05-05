@@ -129,3 +129,55 @@ app:
     - http://example.com
     - http://anotherdomain.com
 
+---
+
+# ================================
+# PREPROD 
+# ================================
+
+spring:
+  config:
+    activate:
+      on-profile: preprod
+  profiles:
+    include: cloud,sec
+
+---
+
+
+---
+
+# ================================
+# PROD Profile + Security
+# java -jar app.jar --spring.profiles.active=prod,sec
+# ================================
+
+spring:
+  config:
+    activate:
+      on-profile: sec
+
+---
+
+# ================================
+# CLOUD Profile 
+# ================================
+
+spring:
+  config:
+    activate:
+      on-profile: cloud
+
+---
+
+# ================================
+# Esempio gruppi che aggregano più profili Profile 
+# ================================
+
+spring:
+  profiles:
+    group:
+      # Gruppo di nome dev_cloud che include i profili dev, sec e cloud
+      dev_cloud: dev,sec,cloud
+      # Gruppo di nome prod che include i profili prod, sec e cloud
+      prod: prod,sec,cloud

@@ -12,6 +12,13 @@ public class DemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
+
+		// Esempio abilitazione di più profili
+		/*
+		SpringApplication app = new SpringApplication(DemoApplication.class);
+		app.setAdditionalProfiles("prod", "sec");
+		app.run(args);
+		*/
 	}
 
 }
